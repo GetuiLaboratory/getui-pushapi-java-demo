@@ -1,0 +1,13 @@
+.settings/
+.metadata/
+target/
+test-output/
+.idea/
+.classpath
+
+*.class
+*.project
+*.DS_Store
+*.war
+*.ear
+*.iml
