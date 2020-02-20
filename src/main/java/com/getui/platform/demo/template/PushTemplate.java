@@ -150,13 +150,20 @@ public class PushTemplate {
         APNPayload.DictionaryAlertMsg alertMsg = new APNPayload.DictionaryAlertMsg();
         alertMsg.setBody("body1");
         alertMsg.setActionLocKey("显示关闭和查看两个按钮的消息");
-        alertMsg.setLocKey("loc-key1");
+        alertMsg.setLocKey("loc-key");
         alertMsg.addLocArg("loc-ary1");
+        alertMsg.addLocArg("loc-ary2");
         alertMsg.setLaunchImage("调用已经在应用程序中绑定的图形文件名");
         // iOS8.2以上版本支持
         alertMsg.setTitle("通知标题");
         alertMsg.setTitleLocKey("自定义通知标题");
-        alertMsg.addTitleLocArg("自定义通知标题组");
+        alertMsg.addTitleLocArg("自定义通知标题组1");
+        alertMsg.addTitleLocArg("自定义通知标题组2");
+
+        alertMsg.setSubtitle("sub-title");
+        alertMsg.setSubtitleLocKey("sub-loc-key1");
+        alertMsg.addSubtitleLocArgs("sub-loc-arg1");
+        alertMsg.addSubtitleLocArgs("sub-loc-arg2");
         return alertMsg;
     }
 
