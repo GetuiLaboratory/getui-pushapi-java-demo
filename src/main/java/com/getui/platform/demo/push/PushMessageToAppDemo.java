@@ -43,6 +43,8 @@ public class PushMessageToAppDemo {
         message.setData(template);
         message.setOffline(true);
         message.setOfflineExpireTime(24 * 1000 * 3600);  //离线有效时间，单位为毫秒，可选
+        // APNs下发策略；1: 个推通道优先，在线经个推通道下发，离线经APNs下发(默认);2: 在离线只经APNs下发;3: 在离线只经个推通道下发;4: 优先经APNs下发，失败后经个推通道下发;
+        message.setStrategyJson("{\"ios\":4}");
         //全量推送时希望能控制推送速度不要太快，缓减服务器连接压力，可设置定速推送。如果未设置则按默认推送速度发送
 //        message.setSpeed(100); // 设置为100，含义为个推控制下发速度在100条/秒左右
 
@@ -65,17 +67,18 @@ public class PushMessageToAppDemo {
         phoneTypeList.add("IOS");
         phoneTypeList.add("ANDROID");
 
-        //省份
-        List<String> provinceList = new ArrayList<String>();
+        //地区
+        List<String> regionList = new ArrayList<String>();
         //参见 datafile目录下 region_code.data
-        provinceList.add("33010000");//杭州市
-        provinceList.add("51010000");//成都市
+        regionList.add("33010000");//杭州市
+        regionList.add("51010000");//成都市
+
         //自定义tag
         List<String> tagList = new ArrayList<String>();
         tagList.add(TAG);
         tagList.add(TAG_2);
 
-        //查询可推送的用户画像
+        //查询可推送的用户画像（需要开通VIP套餐)
         IQueryResult personaTagResult = push.getPersonaTags(APPID);
         System.out.println(personaTagResult.getResponse());
 
@@ -90,7 +93,7 @@ public class PushMessageToAppDemo {
 
         //条件交并补功能, 默认是与
         cdt.addCondition(AppConditions.PHONE_TYPE, phoneTypeList, AppConditions.OptType.or);
-        cdt.addCondition(AppConditions.REGION, provinceList, AppConditions.OptType.or);
+        cdt.addCondition(AppConditions.REGION, regionList, AppConditions.OptType.or);
         cdt.addCondition(AppConditions.TAG, tagList, AppConditions.OptType.not);
         cdt.addCondition("job", jobs);
         cdt.addCondition("age", age);
