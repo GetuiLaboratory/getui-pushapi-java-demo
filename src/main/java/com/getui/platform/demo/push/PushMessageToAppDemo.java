@@ -43,8 +43,8 @@ public class PushMessageToAppDemo {
         message.setData(template);
         message.setOffline(true);
         message.setOfflineExpireTime(24 * 1000 * 3600);  //离线有效时间，单位为毫秒，可选
-        // APNs下发策略；1: 个推通道优先，在线经个推通道下发，离线经APNs下发(默认);2: 在离线只经APNs下发;3: 在离线只经个推通道下发;4: 优先经APNs下发，失败后经个推通道下发;
-        message.setStrategyJson("{\"ios\":4}");
+        // 厂商下发策略；1: 个推通道优先，在线经个推通道下发，离线经厂商下发(默认);2: 在离线只经厂商下发;3: 在离线只经个推通道下发;4: 优先经厂商下发，失败后经个推通道下发;
+        message.setStrategyJson("{\"default\":4,\"ios\":4,\"st\":4}");
         //全量推送时希望能控制推送速度不要太快，缓减服务器连接压力，可设置定速推送。如果未设置则按默认推送速度发送
 //        message.setSpeed(100); // 设置为100，含义为个推控制下发速度在100条/秒左右
 

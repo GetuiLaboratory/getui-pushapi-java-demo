@@ -80,8 +80,8 @@ public class PushMessageToListDemo {
         // 离线有效时间，单位为毫秒，可选
         message.setOfflineExpireTime(24 * 1000 * 3600);
         message.setPushNetWorkType(1);//判断客户端是否wifi环境下推送。1为仅在wifi环境下推送，0为不限制网络环境，默认不限
-        // APNs下发策略；1: 个推通道优先，在线经个推通道下发，离线经APNs下发(默认);2: 在离线只经APNs下发;3: 在离线只经个推通道下发;4: 优先经APNs下发，失败后经个推通道下发;
-        message.setStrategyJson("{\"ios\":4}");
+        // 厂商下发策略；1: 个推通道优先，在线经个推通道下发，离线经厂商下发(默认);2: 在离线只经厂商下发;3: 在离线只经个推通道下发;4: 优先经厂商下发，失败后经个推通道下发;
+        message.setStrategyJson("{\"default\":4,\"ios\":4,\"st\":4}");
         return message;
     }
 

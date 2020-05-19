@@ -44,6 +44,7 @@ public class PushTemplate {
 
 //        template.setDuration("2019-07-09 11:40:00", "2019-07-09 12:24:00");  // 设置定时展示时间，安卓机型可用
         template.setNotifyid(123); // 在消息推送的时候设置notifyid。如果需要覆盖此条消息，则下次使用相同的notifyid发一条新的消息。客户端sdk会根据notifyid进行覆盖。
+        template.setAPNInfo(getAPNPayload()); //ios消息推送
         return template;
     }
 
@@ -127,10 +128,9 @@ public class PushTemplate {
         payload.setSound("default");
         payload.setCategory("$由客户端定义");
         payload.addCustomMsg("由客户自定义消息key", "由客户自定义消息value");
-
         //简单模式APNPayload.SimpleMsg
-        payload.setAlertMsg(new APNPayload.SimpleAlertMsg("hello"));
-//        payload.setAlertMsg(getDictionaryAlertMsg());  //字典模式使用APNPayload.DictionaryAlertMsg
+        // payload.setAlertMsg(new APNPayload.SimpleAlertMsg("hello"));
+        // payload.setAlertMsg(getDictionaryAlertMsg());  //字典模式使用APNPayload.DictionaryAlertMsg
 
         //设置语音播报类型，int类型，0.不可用 1.播放body 2.播放自定义文本
         payload.setVoicePlayType(2);
@@ -139,7 +139,8 @@ public class PushTemplate {
         payload.setVoicePlayMessage("定义内容");
 
         // 添加多媒体资源
-        payload.addMultiMedia(new MultiMedia().setResType(MultiMedia.MediaType.pic)
+        payload.addMultiMedia(new MultiMedia()
+                .setResType(MultiMedia.MediaType.pic)
                 .setResUrl("资源文件地址")
                 .setOnlyWifi(true));
 

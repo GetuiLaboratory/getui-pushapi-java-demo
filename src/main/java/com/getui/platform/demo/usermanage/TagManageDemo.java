@@ -20,6 +20,7 @@ public class TagManageDemo {
     public static void main(String[] args) {
         setClientTag();
         getUserTags();
+        getUserListTags();
     }
 
     /**
@@ -39,6 +40,17 @@ public class TagManageDemo {
      */
     private static void getUserTags () {
         IPushResult ret = push.getUserTags(APPID, CID);
+        System.out.println(ret.getResponse().toString());
+    }
+
+    /**
+     * 批量获取用户的tag属性
+     */
+    public static void getUserListTags() {
+        List<String> list = new ArrayList<String>(2);
+        list.add(CID);
+        list.add(CID_2);
+        IPushResult ret = push.getUserListTags(APPID, list);
         System.out.println(ret.getResponse().toString());
     }
 }

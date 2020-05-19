@@ -6,6 +6,7 @@ import com.gexin.rp.sdk.base.IPushResult;
 import com.gexin.rp.sdk.base.impl.SingleMessage;
 import com.gexin.rp.sdk.base.impl.Target;
 import com.gexin.rp.sdk.exceptions.RequestException;
+import com.gexin.rp.sdk.http.Constants;
 import com.gexin.rp.sdk.template.AbstractTemplate;
 
 import java.io.IOException;
@@ -22,20 +23,23 @@ import static com.getui.platform.demo.constant.AppInfo.*;
 public class PushMessageToSingleDemo {
 
     public static void main(String[] args) {
+        System.setProperty("needOSAsigned", "true");
+        // 返回别名对应的每个cid的推送详情
+        System.setProperty(Constants.GEXIN_PUSH_SINGLE_ALIAS_DETAIL, "true");
         pushToSingle();
 //        pushToSingleBatch();
     }
 
     /**
      * 对单个用户推送消息
-     *
+     * <p>
      * 场景1：某用户发生了一笔交易，银行及时下发一条推送消息给该用户。
-     *
+     * <p>
      * 场景2：用户定制了某本书的预订更新，当本书有更新时，需要向该用户及时下发一条更新提醒信息。
      * 这些需要向指定某个用户推送消息的场景，即需要使用对单个用户推送消息的接口。
      */
     private static void pushToSingle() {
-        AbstractTemplate template = PushTemplate.getNotificationTemplate(); //通知模板(点击后续行为: 支持打开应用、发送透传内容、打开应用同时接收到透传 这三种行为)
+        AbstractTemplate template = PushTemplate.getTransmissionTemplate(); //通知模板(点击后续行为: 支持打开应用、发送透传内容、打开应用同时接收到透传 这三种行为)
 //        AbstractTemplate template = PushTemplate.getLinkTemplate(); //点击通知打开(第三方)网页模板
 //        AbstractTemplate template = PushTemplate.getTransmissionTemplate(); //透传消息模版
 //        AbstractTemplate template = PushTemplate.getRevokeTemplate(); //消息撤回模版
@@ -64,7 +68,7 @@ public class PushMessageToSingleDemo {
 
     /**
      * 批量单推
-     *
+     * <p>
      * 当单推任务较多时，推荐使用该接口，可以减少与服务端的交互次数。
      */
     private static void pushToSingleBatch() {
@@ -121,9 +125,11 @@ public class PushMessageToSingleDemo {
         message.setOffline(true);
         // 离线有效时间，单位为毫秒，可选
         message.setOfflineExpireTime(72 * 3600 * 1000);
+        // 判断客户端是否wifi环境下推送。1为仅在wifi环境下推送，0为不限制网络环境，默认不限
+        message.setPushNetWorkType(1);
         message.setPushNetWorkType(1); // 判断客户端是否wifi环境下推送。1为仅在wifi环境下推送，0为不限制网络环境，默认不限
-        // APNs下发策略；1: 个推通道优先，在线经个推通道下发，离线经APNs下发(默认);2: 在离线只经APNs下发;3: 在离线只经个推通道下发;4: 优先经APNs下发，失败后经个推通道下发;
-        message.setStrategyJson("{\"ios\":4}");
+        // 厂商下发策略；1: 个推通道优先，在线经个推通道下发，离线经厂商下发(默认);2: 在离线只经厂商下发;3: 在离线只经个推通道下发;4: 优先经厂商下发，失败后经个推通道下发;
+        message.setStrategyJson("{\"default\":4,\"ios\":4,\"st\":4}");
         return message;
     }
 
