@@ -30,6 +30,10 @@ public class PushStyle {
         style.setLogo("icon.png"); //配置通知栏图标，需要在客户端开发时嵌入，默认为push.png
         // 配置通知栏网络图标
         style.setLogoUrl("");
+        // 配置自定义铃声(文件名，不需要后缀名)，需要在客户端开发时嵌入后缀名为.ogg的铃声文件
+        style.setRingName("sound");
+        // 角标, 必须大于0, 个推通道下发有效; 此属性目前仅针对华为 EMUI 4.1 及以上设备有效
+        style.setBadgeAddNum(1);
 
         // 设置通知是否响铃，震动，或者可清除
         style.setRing(true);
@@ -59,6 +63,10 @@ public class PushStyle {
         style.setBigStyle1("bigImageUrl"); //设置大图+文本样式
 //        style.setBigStyle2("bigText"); //设置长文本+文本样式
 
+        // 配置自定义铃声(文件名，不需要后缀名)，需要在客户端开发时嵌入后缀名为.ogg的铃声文件
+        style.setRingName("sound");
+        // 角标, 必须大于0, 个推通道下发有效; 此属性目前仅针对华为 EMUI 4.1 及以上设备有效
+        style.setBadgeAddNum(1);
         // 设置通知是否响铃，震动，或者可清除
         style.setRing(true);
         style.setVibrate(true);
